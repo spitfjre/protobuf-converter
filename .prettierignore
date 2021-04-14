@@ -7,5 +7,7 @@
 /example/.gradle
 /example/build
 
+/src/test/java/net/badata/protobuf/converter/proto/
+
 package.json
 package-lock.lock

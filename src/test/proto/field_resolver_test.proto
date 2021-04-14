@@ -9,5 +9,3 @@ message ResolverTest {
 	repeated string stringListValue = 1;
 	string delimitedStringValue = 3;
 }
-
-

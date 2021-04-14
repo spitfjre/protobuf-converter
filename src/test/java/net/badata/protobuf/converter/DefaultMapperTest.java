@@ -226,7 +226,7 @@ public class DefaultMapperTest {
     }
 
     @Test
-    public void testInaccessibleDomainFiled() {
+    public void testInaccessibleDomainField() {
         assertThrows(
             MappingException.class,
             () ->
