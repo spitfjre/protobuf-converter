@@ -1,6 +1,5 @@
 package net.badata.protobuf.converter.type;
 
-
 import java.util.Date;
 
 /**
@@ -11,19 +10,19 @@ import java.util.Date;
  */
 public class DateLongConverterImpl implements TypeConverter<Date, Long> {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Date toDomainValue(final Object instance) {
-		return new Date((Long) instance);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Date toDomainValue(final Object instance) {
+        return new Date((Long) instance);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Long toProtobufValue(final Object instance) {
-		return ((Date) instance).getTime();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long toProtobufValue(final Object instance) {
+        return ((Date) instance).getTime();
+    }
 }

@@ -22,8 +22,8 @@ repositories {
 
 [ compileJava, compileTestJava ]*.options*.encoding = 'UTF-8'
 
-sourceCompatibility='1.7'
-targetCompatibility='1.7'
+sourceCompatibility='1.8'
+targetCompatibility='1.8'
 
 protobuf {
     protoc {
@@ -34,7 +34,10 @@ protobuf {
 
 dependencies {
     compile 'com.google.protobuf:protobuf-java:3.5.1'
-    testCompile 'junit:junit:4.12'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

@@ -13,19 +13,19 @@ import java.util.Set;
  */
 public class SetListConverterImpl implements TypeConverter<Set<?>, List<?>> {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Set<?> toDomainValue(final Object instance) {
-		return new HashSet<Object>((List<?>) instance);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<?> toDomainValue(final Object instance) {
+        return new HashSet<Object>((List<?>) instance);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<?> toProtobufValue(final Object instance) {
-		return new ArrayList<Object>((Set<?>) instance);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<?> toProtobufValue(final Object instance) {
+        return new ArrayList<Object>((Set<?>) instance);
+    }
 }

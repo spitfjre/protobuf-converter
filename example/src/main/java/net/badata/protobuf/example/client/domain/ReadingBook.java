@@ -1,5 +1,7 @@
 package net.badata.protobuf.example.client.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.badata.protobuf.converter.annotation.ProtoClass;
 import net.badata.protobuf.converter.annotation.ProtoField;
 import net.badata.protobuf.example.proto.Book;
@@ -8,72 +10,31 @@ import net.badata.protobuf.example.proto.Book;
  * @author jsjem
  * @author Roman Gushel
  */
+@Getter
 @ProtoClass(value = Book.class, mapper = BookMapper.class)
+@Setter
 public class ReadingBook {
 
-	@ProtoField(name = "id")
-	private long bookId;
-	@ProtoField
-	private String author;
-	@ProtoField
-	private String title;
-	@ProtoField
-	private int pages;
-	@ProtoField(name = "state", converter = BooleanEnumConverter.class)
-	private boolean available;
-	@ProtoField(name = "name")
-	private String ownerName;
+    @ProtoField(name = "id")
+    private long bookId;
 
-	public long getBookId() {
-		return bookId;
-	}
+    @ProtoField
+    private String author;
 
-	public void setBookId(final long bookId) {
-		this.bookId = bookId;
-	}
+    @ProtoField
+    private String title;
 
-	public String getAuthor() {
-		return author;
-	}
+    @ProtoField
+    private int pages;
 
-	public void setAuthor(final String author) {
-		this.author = author;
-	}
+    @ProtoField(name = "state", converter = BooleanEnumConverter.class)
+    private boolean available;
 
-	public String getTitle() {
-		return title;
-	}
+    @ProtoField(name = "name")
+    private String ownerName;
 
-	public void setTitle(final String title) {
-		this.title = title;
-	}
-
-	public int getPages() {
-		return pages;
-	}
-
-	public void setPages(final int pages) {
-		this.pages = pages;
-	}
-
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(final boolean available) {
-		this.available = available;
-	}
-
-	public String getOwnerName() {
-		return ownerName;
-	}
-
-	public void setOwnerName(final String ownerName) {
-		this.ownerName = ownerName;
-	}
-
-	@Override
-	public String toString() {
-		return title + " by " + author + ". - " + pages;
-	}
+    @Override
+    public String toString() {
+        return title + " by " + author + ". - " + pages;
+    }
 }

@@ -1,92 +1,57 @@
 package net.badata.protobuf.example.server.domain;
 
+import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import net.badata.protobuf.converter.annotation.ProtoClass;
 import net.badata.protobuf.converter.annotation.ProtoField;
 import net.badata.protobuf.example.client.domain.BooleanEnumConverter;
 import net.badata.protobuf.example.proto.Book;
 
-import java.util.Objects;
-
 /**
  * @author jsjem
  * @author Roman Gushel
  */
+@Getter
 @ProtoClass(Book.class)
+@Setter
 public class LibraryBook {
 
-	@ProtoField(name = "id")
-	private long bookId;
-	@ProtoField
-	private String author;
-	@ProtoField
-	private String title;
-	@ProtoField
-	private int pages;
-	@ProtoField(name = "state", converter = BooleanEnumConverter.class)
-	private boolean available;
-	@ProtoField
-	private Reader owner;
+    @ProtoField(name = "id")
+    private long bookId;
 
-	public long getBookId() {
-		return bookId;
-	}
+    @ProtoField
+    private String author;
 
-	public void setBookId(final long bookId) {
-		this.bookId = bookId;
-	}
+    @ProtoField
+    private String title;
 
-	public String getAuthor() {
-		return author;
-	}
+    @ProtoField
+    private int pages;
 
-	public void setAuthor(final String author) {
-		this.author = author;
-	}
+    @ProtoField(name = "state", converter = BooleanEnumConverter.class)
+    private boolean available;
 
-	public String getTitle() {
-		return title;
-	}
+    @ProtoField
+    private Reader owner;
 
-	public void setTitle(final String title) {
-		this.title = title;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof LibraryBook) {
+            LibraryBook book = (LibraryBook) obj;
 
-	public int getPages() {
-		return pages;
-	}
+            return (
+                Objects.equals(book.author, author) &&
+                Objects.equals(book.title, title) &&
+                Objects.equals(book.bookId, bookId)
+            );
+        }
 
-	public void setPages(final int pages) {
-		this.pages = pages;
-	}
+        return false;
+    }
 
-	public Reader getOwner() {
-		return owner;
-	}
-
-	public void setOwner(final Reader owner) {
-		this.owner = owner;
-	}
-
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(final boolean available) {
-		this.available = available;
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (obj instanceof LibraryBook) {
-			LibraryBook book = (LibraryBook) obj;
-			return Objects.equals(book.author, author) && Objects.equals(book.title, title) &&
-					Objects.equals(book.bookId, bookId);
-		}
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(title, author, bookId);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author, bookId);
+    }
 }

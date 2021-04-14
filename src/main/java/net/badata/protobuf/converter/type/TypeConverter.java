@@ -9,21 +9,19 @@ package net.badata.protobuf.converter.type;
  * @author Roman Gushel
  */
 public interface TypeConverter<T, E> {
+    /**
+     * Convert instance from protobuf object type to domain object type.
+     *
+     * @param instance Instance for conversion.
+     * @return converted data.
+     */
+    T toDomainValue(final Object instance);
 
-	/**
-	 * Convert instance from protobuf object type to domain object type.
-	 *
-	 * @param instance Instance for conversion.
-	 * @return converted data.
-	 */
-	T toDomainValue(final Object instance);
-
-	/**
-	 * Convert instance from domain object type to protobuf object type.
-	 *
-	 * @param instance Instance for conversion.
-	 * @return converted data.
-	 */
-	E toProtobufValue(final Object instance);
-
+    /**
+     * Convert instance from domain object type to protobuf object type.
+     *
+     * @param instance Instance for conversion.
+     * @return converted data.
+     */
+    E toProtobufValue(final Object instance);
 }

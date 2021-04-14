@@ -41,7 +41,6 @@ message Request {
 	google.protobuf.Any data = 2;
 }
 
-
 message Response {
 	google.protobuf.Any data = 1;
 }
@@ -49,7 +48,6 @@ message Response {
 message Failure {
 	string cause = 1;
 }
-
 
 service LibraryService {
 

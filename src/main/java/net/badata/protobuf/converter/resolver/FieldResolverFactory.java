@@ -9,12 +9,11 @@ import java.lang.reflect.Field;
  * @author Roman Gushel
  */
 public interface FieldResolverFactory {
-
-	/**
-	 * Create field resolver.
-	 *
-	 * @param field Domain class field.
-	 * @return instance of {@link net.badata.protobuf.converter.resolver.FieldResolver FieldResolver}
-	 */
-	FieldResolver createResolver(final Field field);
+    /**
+     * Create field resolver.
+     *
+     * @param field Domain class field.
+     * @return instance of {@link net.badata.protobuf.converter.resolver.FieldResolver FieldResolver}
+     */
+    FieldResolver createResolver(final Field field);
 }

@@ -1,6 +1,10 @@
 package net.badata.protobuf.converter.domain;
 
 import com.google.protobuf.Message;
+import java.lang.reflect.Field;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import net.badata.protobuf.converter.annotation.ProtoClass;
 import net.badata.protobuf.converter.annotation.ProtoClasses;
 import net.badata.protobuf.converter.annotation.ProtoField;
@@ -12,105 +16,98 @@ import net.badata.protobuf.converter.resolver.AnnotatedFieldResolverFactoryImpl;
 import net.badata.protobuf.converter.resolver.DefaultFieldResolverImpl;
 import net.badata.protobuf.converter.resolver.FieldResolver;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 /**
  * @author jsjem
  * @author Roman Gushel
  */
 public class MultiMappingDomain {
 
-	@ProtoClass(MultiMappingProto.MultiMappingTest.class)
-	public static class MultiMappingOwner {
-		@ProtoField
-		private MultiMappingChild multiMappingValue;
-		@ProtoField
-		private List<MultiMappingChild> multiMappingListValue;
+    @Getter
+    @ProtoClass(MultiMappingProto.MultiMappingTest.class)
+    @Setter
+    public static class MultiMappingOwner {
 
-		public MultiMappingChild getMultiMappingValue() {
-			return multiMappingValue;
-		}
+        @ProtoField
+        private MultiMappingChild multiMappingValue;
 
-		public void setMultiMappingValue(final MultiMappingChild multiMappingValue) {
-			this.multiMappingValue = multiMappingValue;
-		}
+        @ProtoField
+        private List<MultiMappingChild> multiMappingListValue;
+    }
 
-		public List<MultiMappingChild> getMultiMappingListValue() {
-			return multiMappingListValue;
-		}
+    @Getter
+    @ProtoClasses(
+        {
+            @ProtoClass(MultiMappingProto.MultiMappingFirst.class),
+            @ProtoClass(
+                value = MultiMappingProto.MultiMappingSecond.class,
+                mapper = MultiMappingMapperImpl.class,
+                fieldFactory = FieldResolverFactoryImpl.class
+            ),
+        }
+    )
+    @Setter
+    public static class MultiMappingChild {
 
-		public void setMultiMappingListValue(final List<MultiMappingChild> multiMappingListValue) {
-			this.multiMappingListValue = multiMappingListValue;
-		}
-	}
+        @ProtoField
+        private int intValue;
 
-	@ProtoClasses({@ProtoClass(MultiMappingProto.MultiMappingFirst.class),
-						  @ProtoClass(value = MultiMappingProto.MultiMappingSecond.class,
-									  mapper = MultiMappingMapperImpl.class,
-									  fieldFactory = FieldResolverFactoryImpl.class)})
-	public static class MultiMappingChild {
-		@ProtoField
-		private int intValue;
-		@ProtoField
-		private long longValue;
+        @ProtoField
+        private long longValue;
+    }
 
-		public int getIntValue() {
-			return intValue;
-		}
+    public static class FieldResolverFactoryImpl extends AnnotatedFieldResolverFactoryImpl {
 
-		public void setIntValue(final int intValue) {
-			this.intValue = intValue;
-		}
+        public static final String FIELD_INT_VALUE = "intValue";
+        public static final String FIELD_LONG_VALUE = "longValue";
 
-		public long getLongValue() {
-			return longValue;
-		}
+        @Override
+        public FieldResolver createResolver(final Field field) {
+            if (FIELD_INT_VALUE.equals(field.getName())) {
+                return super.createResolver(field);
+            }
 
-		public void setLongValue(final long longValue) {
-			this.longValue = longValue;
-		}
-	}
+            if (FIELD_LONG_VALUE.equals(field.getName())) {
+                DefaultFieldResolverImpl fieldResolver = (DefaultFieldResolverImpl) super.createResolver(field);
+                fieldResolver.setProtobufName("longValueChanged");
+                return fieldResolver;
+            }
 
-	public static class FieldResolverFactoryImpl extends AnnotatedFieldResolverFactoryImpl {
+            return new DefaultFieldResolverImpl(field);
+        }
+    }
 
-		public static final String FIELD_INT_VALUE = "intValue";
-		public static final String FIELD_LONG_VALUE = "longValue";
+    public static class MultiMappingMapperImpl extends DefaultMapperImpl {
 
-		@Override
-		public FieldResolver createResolver(final Field field) {
-			if (FIELD_INT_VALUE.equals(field.getName())) {
-				return super.createResolver(field);
-			}
-			if (FIELD_LONG_VALUE.equals(field.getName())) {
-				DefaultFieldResolverImpl fieldResolver = (DefaultFieldResolverImpl) super.createResolver(field);
-				fieldResolver.setProtobufName("longValueChanged");
-				return fieldResolver;
-			}
-			return new DefaultFieldResolverImpl(field);
-		}
-	}
+        @Override
+        public <T extends Message.Builder> MappingResult mapToProtobufField(
+            final FieldResolver fieldResolver,
+            final Object domain,
+            final T protobufBuilder
+        ) throws MappingException {
+            if (
+                FieldResolverFactoryImpl.FIELD_INT_VALUE.equals(fieldResolver.getDomainName()) ||
+                FieldResolverFactoryImpl.FIELD_LONG_VALUE.equals(fieldResolver.getDomainName())
+            ) {
+                return super.mapToProtobufField(fieldResolver, domain, protobufBuilder);
+            }
 
-	public static class MultiMappingMapperImpl extends DefaultMapperImpl {
+            return new MappingResult(MappingResult.Result.MAPPED, null, protobufBuilder);
+        }
 
-		@Override
-		public <T extends Message.Builder> MappingResult mapToProtobufField(final FieldResolver fieldResolver,
-				final Object domain, final T protobufBuilder) throws MappingException {
-			if (FieldResolverFactoryImpl.FIELD_INT_VALUE.equals(fieldResolver.getDomainName()) ||
-					FieldResolverFactoryImpl.FIELD_LONG_VALUE.equals(fieldResolver.getDomainName())) {
-				return super.mapToProtobufField(fieldResolver, domain, protobufBuilder);
-			}
-			return new MappingResult(MappingResult.Result.MAPPED, null, protobufBuilder);
-		}
+        @Override
+        public <T extends Message> MappingResult mapToDomainField(
+            final FieldResolver fieldResolver,
+            final T protobuf,
+            final Object domain
+        ) throws MappingException {
+            if (
+                FieldResolverFactoryImpl.FIELD_INT_VALUE.equals(fieldResolver.getDomainName()) ||
+                FieldResolverFactoryImpl.FIELD_LONG_VALUE.equals(fieldResolver.getDomainName())
+            ) {
+                return super.mapToDomainField(fieldResolver, protobuf, domain);
+            }
 
-		@Override
-		public <T extends Message> MappingResult mapToDomainField(final FieldResolver fieldResolver, final T
-				protobuf, final Object domain) throws MappingException {
-			if (FieldResolverFactoryImpl.FIELD_INT_VALUE.equals(fieldResolver.getDomainName()) ||
-					FieldResolverFactoryImpl.FIELD_LONG_VALUE.equals(fieldResolver.getDomainName())) {
-				return super.mapToDomainField(fieldResolver, protobuf, domain);
-			}
-			return new MappingResult(MappingResult.Result.MAPPED, null, domain);
-		}
-	}
+            return new MappingResult(MappingResult.Result.MAPPED, null, domain);
+        }
+    }
 }

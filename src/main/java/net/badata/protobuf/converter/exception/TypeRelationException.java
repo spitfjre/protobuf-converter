@@ -11,13 +11,13 @@ import com.google.protobuf.Message;
  */
 public class TypeRelationException extends Exception {
 
-	/**
-	 * Constructs a new TypeRelationExcetion with default message.
-	 *
-	 * @param domainType   domain instance class.
-	 * @param protobufType protobuf dto instance class.
-	 */
-	public TypeRelationException(final Class<?> domainType, final Class<? extends Message> protobufType) {
-		super(domainType.getSimpleName() + " is not bound to " + protobufType.getSimpleName());
-	}
+    /**
+     * Constructs a new TypeRelationExcetion with default message.
+     *
+     * @param domainType   domain instance class.
+     * @param protobufType protobuf dto instance class.
+     */
+    public TypeRelationException(final Class<?> domainType, final Class<? extends Message> protobufType) {
+        super(domainType.getSimpleName() + " is not bound to " + protobufType.getSimpleName());
+    }
 }

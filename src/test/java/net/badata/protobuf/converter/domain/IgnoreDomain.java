@@ -1,8 +1,7 @@
 package net.badata.protobuf.converter.domain;
 
-import net.badata.protobuf.converter.annotation.ProtoField;
-
 import java.util.List;
+import net.badata.protobuf.converter.annotation.ProtoField;
 
 /**
  * @author jsjem
@@ -10,28 +9,31 @@ import java.util.List;
  */
 public class IgnoreDomain {
 
+    public static class IgnoreDataTest {
 
-	public static class IgnoreDataTest {
+        @ProtoField
+        public Object fieldName;
 
-		@ProtoField
-		public Object fieldName;
-		@ProtoField(name = "protofield")
-		public Object protoFieldName;
-		@ProtoField(name = "notIgnored")
-		public Object notIgnored;
-		public Object notProtoField;
+        @ProtoField(name = "protofield")
+        public Object protoFieldName;
 
-	}
+        @ProtoField(name = "notIgnored")
+        public Object notIgnored;
 
-	public static class NoIgnoreDataTest {
+        public Object notProtoField;
+    }
 
-		@ProtoField(name = "protofield")
-		public Object fieldName;
-		@ProtoField
-		public IgnoreDataTest ignoreClass;
-		@ProtoField
-		public List<IgnoreDataTest> ignoredCollection;
-		public Object notProtoField;
+    public static class NoIgnoreDataTest {
 
-	}
+        @ProtoField(name = "protofield")
+        public Object fieldName;
+
+        @ProtoField
+        public IgnoreDataTest ignoreClass;
+
+        @ProtoField
+        public List<IgnoreDataTest> ignoredCollection;
+
+        public Object notProtoField;
+    }
 }

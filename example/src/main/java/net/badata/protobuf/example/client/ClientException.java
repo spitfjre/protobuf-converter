@@ -6,7 +6,7 @@ package net.badata.protobuf.example.client;
  */
 public class ClientException extends Exception {
 
-	public ClientException(final String message) {
-		super(message);
-	}
+    public ClientException(final String message) {
+        super(message);
+    }
 }

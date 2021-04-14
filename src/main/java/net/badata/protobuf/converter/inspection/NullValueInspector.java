@@ -7,12 +7,11 @@ package net.badata.protobuf.converter.inspection;
  * @author Roman Gushel
  */
 public interface NullValueInspector {
-
-	/**
-	 * Check whether some value satisfy conditions held by this inspector.
-	 *
-	 * @param value Value for test.
-	 * @return True if inspection is successful.
-	 */
-	boolean isNull(final Object value);
+    /**
+     * Check whether some value satisfy conditions held by this inspector.
+     *
+     * @param value Value for test.
+     * @return True if inspection is successful.
+     */
+    boolean isNull(final Object value);
 }

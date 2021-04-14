@@ -15,11 +15,10 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.TYPE)
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface ProtoClasses {
-
-	/**
-	 * Retrieve array of possible {@code ProtoClass}es for domain.
-	 *
-	 * @return Array of {@link net.badata.protobuf.converter.annotation.ProtoClass ProtoClass}.
-	 */
-	ProtoClass[] value();
+    /**
+     * Retrieve array of possible {@code ProtoClass}es for domain.
+     *
+     * @return Array of {@link net.badata.protobuf.converter.annotation.ProtoClass ProtoClass}.
+     */
+    ProtoClass[] value();
 }

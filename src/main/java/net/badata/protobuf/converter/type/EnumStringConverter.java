@@ -10,25 +10,28 @@ import java.lang.reflect.ParameterizedType;
  */
 public class EnumStringConverter<T extends Enum<T>> implements TypeConverter<T, String> {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public T toDomainValue(Object instance) {
-		if (((String) instance).isEmpty()) {
-			return null;
-		}
-		Class<T> enumType = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
-		return Enum.valueOf(enumType, (String) instance);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public T toDomainValue(Object instance) {
+        if (((String) instance).isEmpty()) {
+            return null;
+        }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toProtobufValue(Object instance) {
-		return instance.toString();
-	}
+        Class<T> enumType = (Class<T>) (
+            (ParameterizedType) getClass().getGenericSuperclass()
+        ).getActualTypeArguments()[0];
+
+        return Enum.valueOf(enumType, (String) instance);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toProtobufValue(Object instance) {
+        return instance.toString();
+    }
 }

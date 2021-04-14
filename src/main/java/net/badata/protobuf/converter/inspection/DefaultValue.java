@@ -7,12 +7,11 @@ package net.badata.protobuf.converter.inspection;
  * @author Roman Gushel
  */
 public interface DefaultValue {
-
-	/**
-	 * Create default value.
-	 *
-	 * @param type Field type.
-	 * @return Object that will be used as default value.
-	 */
-	Object generateValue(final Class<?> type);
+    /**
+     * Create default value.
+     *
+     * @param type Field type.
+     * @return Object that will be used as default value.
+     */
+    Object generateValue(final Class<?> type);
 }

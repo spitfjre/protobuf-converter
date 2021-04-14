@@ -7,4 +7,5 @@
 /example/.gradle
 /example/build
 
-node_modules
+package.json
+package-lock.lock
