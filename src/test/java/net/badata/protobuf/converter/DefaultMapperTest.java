@@ -1,6 +1,7 @@
 package net.badata.protobuf.converter;
 
 import static net.badata.protobuf.converter.mapping.MappingResult.Result;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -149,6 +150,15 @@ public class DefaultMapperTest {
     public void testMapNestedToDomain() throws MappingException {
         MappingResult result = mapper.mapToDomainField(findDomainField("nestedValue"), testProtobuf, testDomain);
         testMappingResult(result, Result.NESTED_MAPPING, testProtobuf.getNestedValue(), testDomain);
+    }
+
+    @Test
+    public void testMapNestedToDomainNull() throws MappingException {
+        final MappingProto.MappingTest testProtobuf = MappingProto.MappingTest.newBuilder().build();
+        final MappingDomain.Test testDomain = MappingDomain.Test.builder().build();
+
+        final MappingResult result = mapper.mapToDomainField(findDomainField("nestedValue"), testProtobuf, testDomain);
+        assertThat(result.getValue()).isNull();
     }
 
     @Test

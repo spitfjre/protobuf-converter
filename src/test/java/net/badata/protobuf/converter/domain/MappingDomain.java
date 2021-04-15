@@ -1,8 +1,7 @@
 package net.badata.protobuf.converter.domain;
 
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import net.badata.protobuf.converter.annotation.ProtoClass;
 import net.badata.protobuf.converter.annotation.ProtoField;
 import net.badata.protobuf.converter.proto.MappingProto;
@@ -13,7 +12,10 @@ import net.badata.protobuf.converter.proto.MappingProto;
  */
 public class MappingDomain {
 
+    @AllArgsConstructor
+    @Builder(toBuilder = true)
     @Getter
+    @NoArgsConstructor
     @ProtoClass(MappingProto.MappingTest.class)
     @Setter
     public static class Test {
