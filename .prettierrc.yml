@@ -1,0 +1,12 @@
+overrides:
+    - files:
+          - "*.java"
+          - "*.json"
+          - "*.md"
+          - "*.xml"
+          - "*.yml"
+      options:
+          endOfLine: "lf"
+          printWidth: 120
+          tabWidth: 4
+          useTabs: false
